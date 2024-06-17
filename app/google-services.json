@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "541702246240",
+    "project_id": "practica02-80f60",
+    "storage_bucket": "practica02-80f60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541702246240:android:1cbe7c1d895d47969b5805",
+        "android_client_info": {
+          "package_name": "com.example.practica02_ruizcoloma"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDEuBDZNaBbpPsKPEzQ1_O0R1puSahrxQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
