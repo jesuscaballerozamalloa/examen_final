@@ -52,7 +52,12 @@ dependencies {
     implementation(libs.firebaseAuth)
     implementation(libs.firebaseDatabase)
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.storage.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation("com.squareup.picasso:picasso:2.7+")
+
 }

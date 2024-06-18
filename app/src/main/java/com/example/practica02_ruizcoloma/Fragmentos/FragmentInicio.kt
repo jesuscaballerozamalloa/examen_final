@@ -1,60 +1,143 @@
 package com.example.practica02_ruizcoloma.Fragmentos
 
+import android.app.ProgressDialog
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.practica02_ruizcoloma.R
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.example.practica02_ruizcoloma.databinding.FragmentInicioBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
+import java.io.ByteArrayOutputStream
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentInicio.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentInicio : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentInicioBinding
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var storage: FirebaseStorage
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inicio, container, false)
+    ): View {
+        binding = FragmentInicioBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentInicio.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentInicio().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        firestore = FirebaseFirestore.getInstance()
+        storage = FirebaseStorage.getInstance()
+
+        progressDialog = ProgressDialog(requireContext())
+        progressDialog.setMessage("Subiendo datos...")
+        progressDialog.setCancelable(false)
+
+        cargarPaises()
+
+        binding.btnGrabarJugador.setOnClickListener {
+            guardarJugador()
+        }
+    }
+
+    private fun cargarPaises() {
+        firestore.collection("Paises")
+            .get()
+            .addOnSuccessListener { result ->
+                val paises = result.map { it.getString("nombre_pais") ?: "" }
+                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, paises)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.SPNPais.adapter = adapter
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(requireContext(), "Error al cargar los países", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun guardarJugador() {
+        val pais = binding.SPNPais.selectedItem.toString()
+        val nombreJugador = binding.ETNombreJugador.text.toString()
+        val posicion = binding.ETPosicion.text.toString()
+        val dorsal = binding.ETDorsal.text.toString()
+        val urlImagen = binding.ETUrlImagen.text.toString()
+
+        if (nombreJugador.isEmpty() || posicion.isEmpty() || dorsal.isEmpty() || urlImagen.isEmpty()) {
+            Toast.makeText(requireContext(), "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        progressDialog.show()
+
+        // Descargar la imagen de la URL y subirla a Firebase Storage
+        Picasso.get().load(urlImagen).into(object : Target {
+            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                bitmap?.let {
+                    val baos = ByteArrayOutputStream()
+                    it.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                    val data = baos.toByteArray()
+
+                    val storageRef = storage.reference.child("images/${System.currentTimeMillis()}.jpg")
+                    val uploadTask = storageRef.putBytes(data)
+                    uploadTask.addOnSuccessListener { taskSnapshot ->
+                        storageRef.downloadUrl.addOnSuccessListener { uri ->
+                            val jugador = hashMapOf(
+                                "pais" to pais,
+                                "nombreJugador" to nombreJugador,
+                                "posicion" to posicion,
+                                "dorsal" to dorsal,
+                                "urlImagen" to uri.toString()
+                            )
+
+                            firestore.collection("jugadores")
+                                .add(jugador)
+                                .addOnSuccessListener {
+                                    Toast.makeText(requireContext(),
+                                        "Jugador guardado con éxito",
+                                        Toast.LENGTH_SHORT).show()
+                                    limpiarCampos()
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(requireContext(),
+                                        "Error al guardar el jugador",
+                                        Toast.LENGTH_SHORT).show()
+                                }
+                                .addOnCompleteListener{
+                                    progressDialog.dismiss()
+                                }
+                        }
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(),
+                            "Error al subir la imagen",
+                            Toast.LENGTH_SHORT).show()
+                            progressDialog.dismiss()
+                    }
                 }
             }
+
+            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                Toast.makeText(requireContext(),
+                    "Error al descargar la imagen", Toast.LENGTH_SHORT).show()
+                    progressDialog.dismiss()
+            }
+
+            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+
+            }
+        })
+    }
+
+    private fun limpiarCampos() {
+        binding.ETNombreJugador.text.clear()
+        binding.ETPosicion.text.clear()
+        binding.ETDorsal.text.clear()
+        binding.ETUrlImagen.text.clear()
     }
 }
