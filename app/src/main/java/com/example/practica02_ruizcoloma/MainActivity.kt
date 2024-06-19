@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
 
         verFragmentInicio()
-        binding.BottonNV.setOnItemReselectedListener { item->
+        binding.BottonNV.setOnItemSelectedListener { item->
             when(item.itemId){
                 R.id.Item_Inicio->{
                     verFragmentInicio()

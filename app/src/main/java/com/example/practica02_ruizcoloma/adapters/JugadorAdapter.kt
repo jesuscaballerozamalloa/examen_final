@@ -3,10 +3,13 @@ package com.example.entregapp.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practica02_ruizcoloma.R
 import com.example.practica02_ruizcoloma.models.JugadorModel
+import com.bumptech.glide.Glide;
+
 
 /**
  * jesus
@@ -29,6 +32,7 @@ class JugadorAdapter(private var lstJugadores: List<JugadorModel>)
         val tvDorsal: TextView = itemView.findViewById(R.id.tvDorsal)
         val tvPais: TextView = itemView.findViewById(R.id.tvPais)
         val tvPosicion: TextView = itemView.findViewById(R.id.tvPosicion)
+        val tvUrlImagen: ImageView = itemView.findViewById(R.id.tvUrlImagen)
 
         init {
             itemView.setOnClickListener {
@@ -52,6 +56,10 @@ class JugadorAdapter(private var lstJugadores: List<JugadorModel>)
         holder.tvDorsal.text = jugador.dorsal
         holder.tvPais.text = jugador.pais
         holder.tvPosicion.text = jugador.posicion
+        Glide.with(holder.itemView.context)
+            .load(jugador.urlImagen)
+            .into(holder.tvUrlImagen)
+
     }
 
     override fun getItemCount(): Int {

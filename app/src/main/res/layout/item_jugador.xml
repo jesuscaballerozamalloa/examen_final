@@ -4,56 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/card_background"
+        android:padding="10dp"
+        android:elevation="4dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
-            <TextView
-                android:id="@+id/tvNombreJugador"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/tvUrlImagen"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="15dp"
+                android:contentDescription="Imagen del Jugador"
+                android:scaleType="centerCrop"
+                android:background="@drawable/image_background" />
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvDorsal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+                <TextView
+                    android:id="@+id/tvNombreJugador"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:padding="5dp" />
 
+                <TextView
+                    android:id="@+id/tvDorsal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dorsal"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp"
+                    android:padding="5dp" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/tvPais"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="País"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:padding="5dp" />
 
             <TextView
                 android:id="@+id/tvPosicion"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="Posición"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:gravity="end" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/black"/>
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
