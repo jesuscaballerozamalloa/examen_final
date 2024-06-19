@@ -2,6 +2,7 @@ package com.example.practica02_ruizcoloma
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.practica02_ruizcoloma.Login.LoginActivity
 import com.example.practica02_ruizcoloma.databinding.ActivityOpcionesLoginBinding
@@ -22,6 +23,13 @@ class Opciones_Login : AppCompatActivity() {
 
         binding.IngresarEmail.setOnClickListener{
             startActivity(Intent(this@Opciones_Login, LoginActivity::class.java))
+        }
+
+        binding.IngresarGoogle.setOnClickListener {
+            Toast.makeText(
+                this,"Esta opción no esta disponible por el momento." +
+                        "Por favor, ingrese con Email",
+                Toast.LENGTH_SHORT).show()
         }
 
     }
