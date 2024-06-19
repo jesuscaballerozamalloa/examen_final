@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.practica02_ruizcoloma.R
 import com.example.practica02_ruizcoloma.models.JugadorModel
 
+/**
+ * jesus
+ */
 class JugadorAdapter(private var lstJugadores: List<JugadorModel>)
     : RecyclerView.Adapter<JugadorAdapter.ViewHolder>() {
 

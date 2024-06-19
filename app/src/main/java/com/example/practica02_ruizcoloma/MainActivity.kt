@@ -11,6 +11,10 @@ import com.example.practica02_ruizcoloma.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
+/**
+ * v2
+ */
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
