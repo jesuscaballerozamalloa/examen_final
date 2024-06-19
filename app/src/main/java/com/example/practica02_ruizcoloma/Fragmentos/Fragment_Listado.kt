@@ -22,7 +22,7 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Use the [Fragment_Listado.newInstance] factory method to
- * create an instance of this fragment.ddasdasdads
+ * create an instance of this fragment.test
  */
 class Fragment_Listado : Fragment() {
 
