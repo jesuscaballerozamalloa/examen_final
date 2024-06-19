@@ -56,5 +56,4 @@
             android:layout_height="2dp"
             android:background="@android:color/black"/>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
