@@ -2,6 +2,7 @@ package com.example.practica02_ruizcoloma
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.practica02_ruizcoloma.Fragmentos.FragmentInicio
 import com.example.practica02_ruizcoloma.Fragmentos.Fragment_Cuenta
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun verFragmentListado(){
+        Log.d("verFragmentListado", "en verFragmentListado")
         binding.TituloRL.text = "Listado de Jugadores"
         val fragment =Fragment_Listado()
         val fragmentTransition = supportFragmentManager.beginTransaction()
@@ -71,6 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun verFragmentCuenta(){
+        Log.d("verFragmentListado", "en verFragmentListado")
         binding.TituloRL.text = "Cuenta"
         val fragment =Fragment_Cuenta()
         val fragmentTransition = supportFragmentManager.beginTransaction()
