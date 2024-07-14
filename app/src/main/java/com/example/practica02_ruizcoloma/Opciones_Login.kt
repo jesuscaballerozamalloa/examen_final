@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.practica02_ruizcoloma.Fragmentos.FragmentInicio
 import com.example.practica02_ruizcoloma.Login.LoginActivity
+import com.example.practica02_ruizcoloma.MainActivity
 import com.example.practica02_ruizcoloma.databinding.ActivityOpcionesLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -22,7 +24,7 @@ class Opciones_Login : AppCompatActivity() {
 
 
         binding.IngresarEmail.setOnClickListener{
-            startActivity(Intent(this@Opciones_Login, LoginActivity::class.java))
+            //startActivity(Intent(this@Opciones_Login, LoginActivity::class.java))
         }
 
         binding.IngresarGoogle.setOnClickListener {

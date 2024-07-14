@@ -5,16 +5,7 @@
         android:title="@string/Item_Inicio"
         android:icon="@drawable/ic_home"
         />
-    <item
-        android:id="@+id/Item_Listado_Player"
-        android:title="@string/Item_Listado_Player"
-        android:icon="@drawable/ic_list"
-        />
-    <item
-        android:id="@+id/Item_Cuenta"
-        android:title="@string/Item_Cuenta"
-        android:icon="@drawable/ic_account"
-        />
+
 
 
 </menu>

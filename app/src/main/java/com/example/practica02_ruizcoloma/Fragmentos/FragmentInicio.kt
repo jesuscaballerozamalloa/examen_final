@@ -55,7 +55,7 @@ class FragmentInicio : Fragment() {
                 val paises = result.map { it.getString("nombre_pais") ?: "" }
                 val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, paises)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.SPNPais.adapter = adapter
+                //binding.SPNPais.adapter = adapter
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(requireContext(), "Error al cargar los países", Toast.LENGTH_SHORT).show()
@@ -63,10 +63,11 @@ class FragmentInicio : Fragment() {
     }
 
     private fun guardarJugador() {
-        val pais = binding.SPNPais.selectedItem.toString()
+        //val pais = binding.SPNPais.selectedItem.toString()
+        val pais= "2"
         val nombreJugador = binding.ETNombreJugador.text.toString()
-        val posicion = binding.ETPosicion.text.toString()
-        val dorsal = binding.ETDorsal.text.toString()
+        val posicion = "2"
+        val dorsal = "2"
         val urlImagen = binding.ETUrlImagen.text.toString()
 
         if (nombreJugador.isEmpty() || posicion.isEmpty() || dorsal.isEmpty() || urlImagen.isEmpty()) {
@@ -136,8 +137,8 @@ class FragmentInicio : Fragment() {
 
     private fun limpiarCampos() {
         binding.ETNombreJugador.text.clear()
-        binding.ETPosicion.text.clear()
-        binding.ETDorsal.text.clear()
+        //binding.ETPosicion.text.clear()
+        //binding.ETDorsal.text.clear()
         binding.ETUrlImagen.text.clear()
     }
 }

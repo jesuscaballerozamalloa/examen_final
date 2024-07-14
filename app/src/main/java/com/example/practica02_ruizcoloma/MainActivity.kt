@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        firebaseAuth = FirebaseAuth.getInstance()
-        comprobarSesion()
+        //firebaseAuth = FirebaseAuth.getInstance()
+        //comprobarSesion()
 
 
         verFragmentInicio()
@@ -34,14 +34,6 @@ class MainActivity : AppCompatActivity() {
             when(item.itemId){
                 R.id.Item_Inicio->{
                     verFragmentInicio()
-                    true
-                }
-                R.id.Item_Listado_Player->{
-                    verFragmentListado()
-                    true
-                }
-                R.id.Item_Cuenta->{
-                    verFragmentCuenta()
                     true
                 }
 
@@ -53,10 +45,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun comprobarSesion(){
-        if (firebaseAuth.currentUser == null){
-            startActivity(Intent(this, Opciones_Login::class.java))
-            finishAffinity()
-        }
+       // if (firebaseAuth.currentUser == null){
+       //     startActivity(Intent(this, Opciones_Login::class.java))
+        //    finishAffinity()
+        //}
+        binding.TituloRL.text = "Registro Jugadores"
+        val fragment =FragmentInicio()
+        val fragmentTransition = supportFragmentManager.beginTransaction()
+        fragmentTransition.replace(binding.Fragment1.id, fragment, "FragmentInicio")
+        fragmentTransition.commit()
     }
 
     private fun verFragmentInicio(){

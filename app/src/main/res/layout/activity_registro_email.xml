@@ -15,7 +15,7 @@
         android:gravity="center"
         >
         <TextView
-            android:text="@string/Txt_registro"
+            android:text= "Resgistrar Equipo"
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/Btn_registrar"
-            android:text="@string/Btn_registrar"
+            android:text="Registro Equipo"
             android:textAllCaps="true"
             android:layout_marginTop="20dp"
             android:layout_width="180dp"
